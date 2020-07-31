@@ -16,15 +16,13 @@ export const GetChoiceByNameHandler = async (req: Request, res: Response) => {
     const choices = await ChoiceApp.getChoiceByName(name);
 
     res.json(choices);
-  }
-  catch (err) {
+  } catch (err) {
     if (err instanceof ChoiceNotFoundError) {
       const { message, query } = err;
 
       res.status(404).json({ message, query });
-    }
-    else {
+    } else {
       throw err;
     }
   }
-}
+};
