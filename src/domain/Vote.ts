@@ -1,4 +1,4 @@
-import Episode from "./value-object/Episode";
+import Episode from './value-object/Episode';
 
 type Vote = {
   email: string;
@@ -21,3 +21,5 @@ type Vote = {
   custom: { episode: Episode, content: string }[];
   message: { name: string, content: string }[];
 }
+
+export default Vote;

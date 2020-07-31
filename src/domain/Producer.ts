@@ -4,3 +4,5 @@ type Producer = {
   name: string;
   songs: Episode[];
 }
+
+export default Producer;
