@@ -21,7 +21,7 @@ describe('Choice Test', () => {
       // Arrange
       const getChoicesMock = sinon.stub(ChoiceRepository, 'getChoices');
       const sample = [util.getSampleChoice()];
-      getChoicesMock.returns(sample);
+      getChoicesMock.resolves(sample);
   
       // Act
       const response = await request.get('/v1/choice');
@@ -38,7 +38,7 @@ describe('Choice Test', () => {
       // Arrange
       const getChoiceByNameMock = sinon.stub(ChoiceRepository, 'getChoiceByName');
       const sample = util.getSampleChoice();
-      getChoiceByNameMock.returns(sample);
+      getChoiceByNameMock.resolves(sample);
       
       // Act
       const choiceName = sample.name;
@@ -54,7 +54,7 @@ describe('Choice Test', () => {
     it("should response 404 when there's no choice", async () => {
       // Arrange
       const getChoiceByNameMock = sinon.stub(ChoiceRepository, 'getChoiceByName');
-      getChoiceByNameMock.returns(null);
+      getChoiceByNameMock.resolves(null);
       
       // Act
       const choiceName = 'sample';
