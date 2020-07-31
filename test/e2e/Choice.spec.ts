@@ -14,7 +14,7 @@ describe('Choice Test', () => {
 
   beforeEach(() => {
     sinon.restore();
-  })
+  });
 
   describe('GET /v1/choice', () => {
     it('should return all choices list', async () => {
@@ -22,28 +22,28 @@ describe('Choice Test', () => {
       const getChoicesMock = sinon.stub(ChoiceRepository, 'getChoices');
       const sample = [util.getSampleChoice()];
       getChoicesMock.resolves(sample);
-  
+
       // Act
       const response = await request.get('/v1/choice');
-  
+
       // Assert
       response.status.should.equal(200);
       response.body.should.deep.equal(sample);
       getChoicesMock.called.should.be.true;
     });
   });
-  
+
   describe('GET /v1/choice/:name', () => {
     it('should return choice with given name', async () => {
       // Arrange
       const getChoiceByNameMock = sinon.stub(ChoiceRepository, 'getChoiceByName');
       const sample = util.getSampleChoice();
       getChoiceByNameMock.resolves(sample);
-      
+
       // Act
       const choiceName = sample.name;
-      const response =await request.get(`/v1/choice/${choiceName}`);
-      
+      const response = await request.get(`/v1/choice/${choiceName}`);
+
       // Assert
       response.status.should.equal(200);
       response.body.should.deep.equal(sample);
@@ -55,11 +55,11 @@ describe('Choice Test', () => {
       // Arrange
       const getChoiceByNameMock = sinon.stub(ChoiceRepository, 'getChoiceByName');
       getChoiceByNameMock.resolves(null);
-      
+
       // Act
       const choiceName = 'sample';
-      const response =await request.get(`/v1/choice/${choiceName}`);
-      
+      const response = await request.get(`/v1/choice/${choiceName}`);
+
       // Assert
       response.status.should.equal(404);
       getChoiceByNameMock.called.should.be.true;
