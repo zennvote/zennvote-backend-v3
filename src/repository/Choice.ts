@@ -4,6 +4,6 @@ export const getChoices = (): Promise<Choice[]> => {
   throw new Error('Not Implemented');
 };
 
-export const getChoiceByName = (name: String): Promise<Choice | null> => {
+export const getChoiceByName = (name: string): Promise<Choice | null> => {
   throw new Error('Not Implemented');
 };
