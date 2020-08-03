@@ -8,4 +8,6 @@ app.use(express.json());
 app.get('/v1/choice', GetChoicesHandler);
 app.get('/v1/choice/:name', GetChoiceByNameHandler);
 
+app.listen(4000);
+
 export default app;
