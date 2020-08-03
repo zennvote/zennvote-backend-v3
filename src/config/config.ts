@@ -12,7 +12,7 @@ export default () => {
   const fileName = envPathMap[env ?? 'default'];
   
   if (fileName) {
-    dotenv.config({ path: path.join(__dirname, fileName) });
+    dotenv.config({ path: path.join(__dirname, '../..', fileName) });
   } else {
     throw new Error('process.env.NODE_ENV not exists');
   }
