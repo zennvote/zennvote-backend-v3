@@ -1,3 +1,6 @@
 import app from '@src/App';
+import '@src/infrastructure/mysql/connection';
 
-app.listen(4000);
+console.log(process.env.NODE_ENV);
+
+// app.listen(4000);
