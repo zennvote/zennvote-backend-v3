@@ -4,9 +4,12 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
-    "target": "es2020",
+    "target": "es2019",
     "allowJs": false,
     "baseUrl": ".",
+    "typeRoots": ["./types"],
+    "declaration": true,
+    "declarationDir": "./types",
     "paths": {
       "@src/*": [
         "src/*"
