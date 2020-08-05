@@ -7,7 +7,7 @@ export class ChoiceNotFoundError extends Error {
       return;
     }
 
-    super(`Choice not found (query: ${query})`);
+    super(`Choice not found (query: ${JSON.stringify(query)})`);
     this.query = query;
   }
 }
