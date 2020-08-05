@@ -1,6 +1,21 @@
 import * as mysql from 'mysql2/promise';
-import '@src/types/global';
+import configs from '@src/config';
 
 let connectionPool: mysql.Pool | undefined;
 
-const getConnection = connectionPool;
+export const getConnection = async () => {
+  if (!connectionPool) {
+    connectionPool = mysql.createPool({
+      host: configs.mysqlHost,
+      port: configs.mysqlPort,
+      user: configs.mysqlUser,
+      password: configs.mysqlPassword,
+      database: configs.mysqlDatabase,
+      connectionLimit: 4,
+    });
+  }
+
+  const connection = await connectionPool.getConnection();
+
+  return connection;
+};
