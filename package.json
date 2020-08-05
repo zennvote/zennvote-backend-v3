@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register src",
     "start:prod": "cross-env NODE_ENV=prod ts-node -r tsconfig-paths/register src",
-    "test": "nyc mocha --exit",
+    "test": "cross-env NODE_ENV=local nyc mocha --exit",
     "lint": "eslint **/*.ts",
     "lint:fix": "eslint --fix **/*.ts"
   },

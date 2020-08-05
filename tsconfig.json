@@ -7,9 +7,6 @@
     "target": "es2019",
     "allowJs": false,
     "baseUrl": ".",
-    "typeRoots": ["./types"],
-    "declaration": true,
-    "declarationDir": "./types",
     "paths": {
       "@src/*": [
         "src/*"
