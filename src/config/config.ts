@@ -1,6 +1,6 @@
-import NodeEnv from "./NodeEnv";
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import NodeEnv from './NodeEnv';
 
 export default () => {
   const env = process.env.NODE_ENV;
@@ -11,7 +11,7 @@ export default () => {
     default: undefined,
   };
   const fileName = envPathMap[env ?? 'default'];
-  
+
   if (fileName) {
     dotenv.config({ path: path.join(__dirname, '../..', fileName) });
   } else {
