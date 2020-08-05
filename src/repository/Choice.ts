@@ -9,6 +9,7 @@ export const getChoices = async (): Promise<Choice[]> => {
 
   const queryString = 'SELECT * FROM choice';
   const [queryResult] = await connection.query(queryString);
+  connection.release();
   if (!isArray(queryResult)) {
     throw new UnexpectedQueryResultError(queryString, queryResult);
   }
@@ -34,10 +35,10 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
 
   const queryString = `SELECT * FROM choice WHERE name="${name}"`;
   const [queryResult] = await connection.query(queryString);
+  connection.release();
   if (!isArray(queryResult)) {
     throw new UnexpectedQueryResultError(queryString, queryResult);
   }
-  console.log(queryResult);
 
   if (queryResult.length === 0) {
     return null;
