@@ -1,3 +1,8 @@
-import app from '@src/App';
+import app from '@src/interface/App';
+import config from '@src/config';
 
-app.listen(4000);
+const port = config.expressPort;
+
+app.listen(port, () => {
+  console.log(`App started on port ${port}`)
+});
