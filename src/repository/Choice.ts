@@ -1,7 +1,7 @@
 import Choice from '@src/domain/Choice';
-import { getConnection } from '@src/infrastructure/mysql/connection';
+import { getConnection } from '@src/infrastructure/db/connection';
 import { isArray } from 'util';
-import { UnexpectedQueryResultError } from '@src/infrastructure/mysql/errors';
+import { UnexpectedQueryResultError } from '@src/infrastructure/db/errors';
 import { RowDataPacket } from 'mysql2';
 
 export const getChoices = async (): Promise<Choice[]> => {
