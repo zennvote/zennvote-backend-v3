@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 import * as fs from 'fs';
-import { AssertionError } from 'chai';
+import 'winston-daily-rotate-file';
 
 const logDir = 'log';
 
@@ -20,8 +20,8 @@ const logger = winston.createLogger({
       winston.format.colorize(),
       winston.format.printf(({ level, message, timestamp }) => `${timestamp} ▶ ${level}\t ${message}`)
     ) }),
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log', level: 'http' }),
+    new winston.transports.DailyRotateFile({ filename: 'error.%DATE%.log', datePattern: 'YYYY-MM-DD', maxSize: '20m', zippedArchive: true, level: 'error' }),
+    new winston.transports.DailyRotateFile({ filename: 'combined.%DATE%.log', datePattern: 'YYYY-MM-DD', maxSize: '20m', zippedArchive: true, level: 'http' }),
   ],
 });
 
