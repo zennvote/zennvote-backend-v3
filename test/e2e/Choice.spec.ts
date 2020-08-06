@@ -2,7 +2,7 @@ import * as supertest from 'supertest';
 import * as sinon from 'sinon';
 import { should } from 'chai';
 
-import app from '@src/App';
+import app from '@src/interface/App';
 
 import * as ChoiceRepository from '@src/repository/Choice';
 import * as util from './Choice.util';
@@ -16,7 +16,7 @@ describe('Choice Test', () => {
     sinon.restore();
   });
 
-  describe('GET /v1/choice', () => {
+  describe('GET /choice', () => {
     it('should return all choices list', async () => {
       // Arrange
       const getChoicesMock = sinon.stub(ChoiceRepository, 'getChoices');
@@ -24,7 +24,7 @@ describe('Choice Test', () => {
       getChoicesMock.resolves(sample);
 
       // Act
-      const response = await request.get('/v1/choice');
+      const response = await request.get('/choice');
 
       // Assert
       response.status.should.equal(200);
@@ -33,7 +33,7 @@ describe('Choice Test', () => {
     });
   });
 
-  describe('GET /v1/choice/:name', () => {
+  describe('GET /choice/:name', () => {
     it('should return choice with given name', async () => {
       // Arrange
       const getChoiceByNameMock = sinon.stub(ChoiceRepository, 'getChoiceByName');
@@ -42,7 +42,7 @@ describe('Choice Test', () => {
 
       // Act
       const choiceName = sample.name;
-      const response = await request.get(`/v1/choice/${choiceName}`);
+      const response = await request.get(`/choice/${choiceName}`);
 
       // Assert
       response.status.should.equal(200);
@@ -58,7 +58,7 @@ describe('Choice Test', () => {
 
       // Act
       const choiceName = 'sample';
-      const response = await request.get(`/v1/choice/${choiceName}`);
+      const response = await request.get(`/choice/${choiceName}`);
 
       // Assert
       response.status.should.equal(404);
