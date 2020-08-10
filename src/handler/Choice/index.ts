@@ -1,15 +1,19 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import * as ChoiceApp from '@src/application/Choice';
 import { ChoiceNotFoundError } from '@src/application/Choice/errors';
 
-export const GetChoicesHandler = async (req: Request, res: Response) => {
-  const choices = await ChoiceApp.getChoices();
+export const GetChoicesHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const choices = await ChoiceApp.getChoices();
 
-  res.json(choices);
+    res.json(choices);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const GetChoiceByNameHandler = async (req: Request, res: Response) => {
+export const GetChoiceByNameHandler = async (req: Request, res: Response, next: NextFunction) => {
   const { name } = req.params;
 
   try {
@@ -22,7 +26,7 @@ export const GetChoiceByNameHandler = async (req: Request, res: Response) => {
 
       res.status(404).json({ message, query });
     } else {
-      throw err;
+      next(err);
     }
   }
 };
