@@ -12,7 +12,9 @@ const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    winston.format.json(),
+    winston.format.printf(({ level, message, timestamp }) => JSON.stringify({
+      level, timestamp, message: message.replace(/\u001b\[\d+m/g, '') + ' testmessage'
+    })),
   ),
   transports: [
     new winston.transports.Console({ format: winston.format.combine(
