@@ -1,12 +1,12 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
-import * as pe from 'pretty-error';
+import * as PE from 'pretty-error';
 
 import logger from '@src/infrastructure/logger/logger';
 import ChoiceRouter from './routes/Choice';
 import VoteRouter from './routes/Vote';
 
-const PrettyError = new pe();
+const PrettyError = new PE();
 
 const app = express();
 
