@@ -1,3 +1,10 @@
-import app from '@src/App';
+import app from '@src/interface/App';
+import config from '@src/config';
+import '@src/infrastructure/logger/logger';
+import logger from '@src/infrastructure/logger/logger';
 
-app.listen(4000);
+const port = config.expressPort;
+
+app.listen(port, () => {
+  logger.info(`App started on port ${port}`);
+});

@@ -1,6 +1,6 @@
 import Choice from '@src/domain/Choice';
-import { getConnection } from '@src/infrastructure/mysql/connection';
-import { parseSelectResult } from '@src/infrastructure/mysql/utils';
+import { getConnection } from '@src/infrastructure/db/connection';
+import { parseSelectResult } from '@src/infrastructure/db/utils';
 
 export const getChoices = async (): Promise<Choice[]> => {
   const connection = await getConnection();

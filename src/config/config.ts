@@ -8,6 +8,7 @@ export default () => {
     [NodeEnv.Production]: '.env.prod',
     [NodeEnv.Develop]: '.env.dev',
     [NodeEnv.Local]: '.env.local',
+    [NodeEnv.Test]: '.env.test',
     default: undefined,
   };
   const fileName = envPathMap[env ?? 'default'];
