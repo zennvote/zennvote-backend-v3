@@ -38,5 +38,24 @@ describe('Vote Test', () => {
       isEmailDuplicatedMock.called.should.be.true;
       isEmailDuplicatedMock.firstCall.args[0].should.equal(sample.email);
     });
+
+    it('should throw 422 error if given email is already existing', async () => {
+      // Arrange
+      const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
+      const isEmailDuplicatedMock = sinon.stub(VoteRepository, 'isEmailDuplicated');
+      const sample = utils.getSampleChoice();
+      saveVoteMock.resolves(sample);
+      isEmailDuplicatedMock.resolves(true);
+
+      // Act
+      const response = await request.post('/vote').send(sample);
+
+      // Assert
+      response.status.should.equal(422);
+      response.body.should.deep.equal({ success: false, message: 'vote email already existing' });
+
+      saveVoteMock.called.should.be.true;
+      isEmailDuplicatedMock.firstCall.args[0].should.equal(sample.email);
+    });
   });
 });
