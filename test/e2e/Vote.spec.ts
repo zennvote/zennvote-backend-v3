@@ -21,6 +21,7 @@ describe('Vote Test', () => {
       // Arrange
       const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
       const sample = utils.getSampleChoice();
+      saveVoteMock.resolves(sample);
 
       // Act
       const response = await request.post('/vote').send(sample);
