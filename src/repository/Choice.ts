@@ -1,8 +1,6 @@
 import Choice from '@src/domain/Choice';
 import { getConnection } from '@src/infrastructure/mysql/connection';
-import { isArray } from 'util';
-import { UnexpectedQueryResultError } from '@src/infrastructure/mysql/errors';
-import { RowDataPacket } from 'mysql2';
+import { parseSelectResult } from '@src/infrastructure/mysql/utils';
 
 export const getChoices = async (): Promise<Choice[]> => {
   const connection = await getConnection();
@@ -10,12 +8,8 @@ export const getChoices = async (): Promise<Choice[]> => {
   const queryString = 'SELECT * FROM choice';
   const [queryResult] = await connection.query(queryString);
   connection.release();
-  if (!isArray(queryResult)) {
-    throw new UnexpectedQueryResultError(queryString, queryResult);
-  }
 
-  const result = queryResult.flat()
-    .map((value) => value as RowDataPacket)
+  const result = parseSelectResult(queryString, queryResult)
     .map(({ name, index, value }) => ({ name, index, value }))
     .reduce((original, row) => {
       const choices = original;
@@ -36,16 +30,13 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
   const queryString = `SELECT * FROM choice WHERE name="${name}"`;
   const [queryResult] = await connection.query(queryString);
   connection.release();
-  if (!isArray(queryResult)) {
-    throw new UnexpectedQueryResultError(queryString, queryResult);
-  }
 
-  if (queryResult.length === 0) {
+  const parsed = parseSelectResult(queryString, queryResult);
+  if (parsed.length === 0) {
     return null;
   }
 
-  const result = queryResult.flat()
-    .map((value) => value as RowDataPacket)
+  const result = parsed
     .map(({ index, value }) => ({ index, value }))
     .reduce<Choice>((original, row) => {
       const choice = original;
