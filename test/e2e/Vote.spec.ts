@@ -20,8 +20,10 @@ describe('Vote Test', () => {
     it('should store given vote data', async () => {
       // Arrange
       const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
+      const isEmailDuplicatedMock = sinon.stub(VoteRepository, 'isEmailDuplicated');
       const sample = utils.getSampleChoice();
       saveVoteMock.resolves(sample);
+      isEmailDuplicatedMock.resolves(false);
 
       // Act
       const response = await request.post('/vote').send(sample);
@@ -29,8 +31,12 @@ describe('Vote Test', () => {
       // Assert
       response.status.should.equal(200);
       response.body.should.deep.equal({ success: true, result: sample });
+
       saveVoteMock.called.should.be.true;
       saveVoteMock.firstCall.args.should.deep.equal([sample]);
+
+      isEmailDuplicatedMock.called.should.be.true;
+      isEmailDuplicatedMock.firstCall.args[0].should.equal(sample.email);
     });
   });
 });
