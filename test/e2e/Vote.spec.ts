@@ -54,7 +54,7 @@ describe('Vote Test', () => {
       response.status.should.equal(422);
       response.body.should.deep.equal({ success: false, message: 'vote email already existing' });
 
-      saveVoteMock.called.should.be.true;
+      saveVoteMock.called.should.be.false;
       isEmailDuplicatedMock.firstCall.args[0].should.equal(sample.email);
     });
   });
