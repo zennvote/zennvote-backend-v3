@@ -57,5 +57,23 @@ describe('Vote Test', () => {
       saveVoteMock.called.should.be.false;
       isEmailDuplicatedMock.firstCall.args[0].should.equal(sample.email);
     });
+
+    // TODO: express request validator의 에러 반환 형식을 확인한 후 테스트 케이스 보충 필요.
+    it('should throw 400 if given vote is invalid', async () => {
+      // Arrange
+      const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
+      const isEmailDuplicated = sinon.stub(VoteRepository, 'isEmailDuplicated');
+      const sample = {};
+
+      // Act
+      const response = await request.post('/vote').send(sample);
+
+      // Assert
+      response.status.should.equal(400);
+      response.should.have.own.property('success').which.is.equal(false);
+
+      saveVoteMock.called.should.be.false;
+      isEmailDuplicated.called.should.be.false;
+    });
   });
 });
