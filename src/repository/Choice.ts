@@ -8,14 +8,11 @@ export const getChoices = async (): Promise<Choice[]> => {
   const connection = await getConnection();
 
   const queryString = 'SELECT * FROM choice';
-  const [queryResult] = await connection.query(queryString);
-  connection.release();
-  if (!isArray(queryResult)) {
-    throw new UnexpectedQueryResultError(queryString, queryResult);
-  }
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
 
-  const result = queryResult.flat()
-    .map((value) => value as RowDataPacket)
+  connection.release();
+
+  const result = queryResult
     .map(({ name, index, value }) => ({ name, index, value }))
     .reduce((original, row) => {
       const choices = original;
@@ -34,18 +31,15 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
   const connection = await getConnection();
 
   const queryString = `SELECT * FROM choice WHERE name="${name}"`;
-  const [queryResult] = await connection.query(queryString);
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+
   connection.release();
-  if (!isArray(queryResult)) {
-    throw new UnexpectedQueryResultError(queryString, queryResult);
-  }
 
   if (queryResult.length === 0) {
     return null;
   }
 
-  const result = queryResult.flat()
-    .map((value) => value as RowDataPacket)
+  const result = queryResult
     .map(({ index, value }) => ({ index, value }))
     .reduce<Choice>((original, row) => {
       const choice = original;
