@@ -4,8 +4,8 @@ import { body } from 'express-validator';
 const episodeValidator = (key: string, max: number, min: number = 1) => [
   body(key)
     .isArray().withMessage('should be array')
-    .isLength({ max }).withMessage(`should be under ${max}`)
-    .isLength({ min }).withMessage(`${min} item required`),
+    .isArray({ max }).withMessage(`should be under ${max}`)
+    .isArray({ min }).withMessage(`${min} item required`),
 
   body(`${key}.*.episode`)
     .isInt().withMessage('should be integer')
@@ -17,8 +17,8 @@ const episodeValidator = (key: string, max: number, min: number = 1) => [
 const selectionValidator = (key: string, max: number, min: number = 1) => [
   body(key)
     .isArray().withMessage('should be array')
-    .isLength({ max }).withMessage(`should be under ${max}`)
-    .isLength({ min }).withMessage(`${min} item required`),
+    .isArray({ max }).withMessage(`should be under ${max}`)
+    .isArray({ min }).withMessage(`${min} item required`),
 
   body(`${key}.*`).isString().withMessage('should be string'),
 ];
@@ -40,7 +40,7 @@ const validator = [
 
   ...episodeValidator('sleep', 3),
   ...selectionValidator('unit', 3, 3),
-  ...selectionValidator('new', 3, 2),
+  ...selectionValidator('rookie', 3, 2),
   ...selectionValidator('grow', 3, 0),
 
   ...selectionValidator('master', 3),
