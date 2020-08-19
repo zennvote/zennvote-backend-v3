@@ -70,7 +70,7 @@ describe('Vote Test', () => {
 
       // Assert
       response.status.should.equal(400);
-      response.should.have.own.property('success').which.is.equal(false);
+      response.body.should.have.own.property('success').which.is.equal(false);
 
       saveVoteMock.called.should.be.false;
       isEmailDuplicated.called.should.be.false;
