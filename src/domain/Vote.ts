@@ -3,7 +3,7 @@ import Episode from './value-object/Episode';
 type Vote = {
   email: string;
 
-  problem: number[];
+  quiz: number[];
 
   pitch: Episode[];
   voice: Episode[];

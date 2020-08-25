@@ -2,7 +2,7 @@ import Vote from '@src/domain/Vote';
 
 export const getSampleChoice = (): Vote => ({
   email: 'test@nomail.com',
-  problem: [1, 2, 3, 1, 2, 3, 1, 2, 3],
+  quiz: [1, 2, 3, 1, 2, 3, 1, 2, 3],
 
   pitch: [
     { episode: 101, index: 1 },

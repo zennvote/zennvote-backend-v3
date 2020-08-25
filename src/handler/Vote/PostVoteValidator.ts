@@ -26,10 +26,10 @@ const selectionValidator = (key: string, max: number, min: number = 1) => [
 const validator = [
   body('email').isEmail(),
 
-  body('problem')
+  body('quiz')
     .isArray().withMessage('should be array')
     .isArray({ min: 9, max: 9 }).withMessage('should have 9 item'),
-  body('problem.*')
+  body('quiz.*')
     .isInt().withMessage('should be integer'),
 
   ...episodeValidator('pitch', 5),
