@@ -21,7 +21,7 @@ describe('Vote Test', () => {
       // Arrange
       const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
       const isEmailDuplicatedMock = sinon.stub(VoteRepository, 'isEmailDuplicated');
-      const sample = utils.getSampleChoice();
+      const sample = utils.getSampleVote();
       saveVoteMock.resolves(sample);
       isEmailDuplicatedMock.resolves(false);
 
@@ -43,7 +43,7 @@ describe('Vote Test', () => {
       // Arrange
       const saveVoteMock = sinon.stub(VoteRepository, 'saveVote');
       const isEmailDuplicatedMock = sinon.stub(VoteRepository, 'isEmailDuplicated');
-      const sample = utils.getSampleChoice();
+      const sample = utils.getSampleVote();
       saveVoteMock.resolves(sample);
       isEmailDuplicatedMock.resolves(true);
 

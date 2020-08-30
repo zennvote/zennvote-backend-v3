@@ -1,6 +1,6 @@
 import Vote from '@src/domain/Vote';
 
-export const getSampleChoice = (): Vote => ({
+export const getSampleVote = (): Vote => ({
   email: 'test@nomail.com',
   quiz: [1, 2, 3, 1, 2, 3, 1, 2, 3],
 
