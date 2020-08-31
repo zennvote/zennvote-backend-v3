@@ -11,4 +11,6 @@ export default {
   mysqlUser: process.env.MYSQL_USER,
   mysqlPassword: process.env.MYSQL_PASSWORD,
   mysqlDatabase: process.env.MYSQL_DATABASE,
+  // Google SpreadSheets
+  seasonSheetId: process.env.SEASON_SHEET_ID,
 };
