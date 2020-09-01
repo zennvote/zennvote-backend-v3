@@ -33,8 +33,7 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
 
   connection.release();
 
-  const parsed = parseSelectResult(queryString, queryResult);
-  if (parsed.length === 0) {
+  if (queryResult.length === 0) {
     return null;
   }
 
