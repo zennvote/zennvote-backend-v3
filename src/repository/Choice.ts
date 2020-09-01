@@ -1,15 +1,16 @@
 import Choice from '@src/domain/Choice';
 import { getConnection } from '@src/infrastructure/db/connection';
-import { parseSelectResult } from '@src/infrastructure/db/utils';
+import { RowDataPacket } from 'mysql2';
 
 export const getChoices = async (): Promise<Choice[]> => {
   const connection = await getConnection();
 
   const queryString = 'SELECT * FROM choice';
-  const [queryResult] = await connection.query(queryString);
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+
   connection.release();
 
-  const result = parseSelectResult(queryString, queryResult)
+  const result = queryResult
     .map(({ name, index, value }) => ({ name, index, value }))
     .reduce((original, row) => {
       const choices = original;
@@ -28,7 +29,8 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
   const connection = await getConnection();
 
   const queryString = `SELECT * FROM choice WHERE name="${name}"`;
-  const [queryResult] = await connection.query(queryString);
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+
   connection.release();
 
   const parsed = parseSelectResult(queryString, queryResult);
@@ -36,7 +38,7 @@ export const getChoiceByName = async (name: string): Promise<Choice | null> => {
     return null;
   }
 
-  const result = parsed
+  const result = queryResult
     .map(({ index, value }) => ({ index, value }))
     .reduce<Choice>((original, row) => {
       const choice = original;

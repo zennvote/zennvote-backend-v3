@@ -14,5 +14,6 @@ module.exports = {
     'linebreak-style': 0,
     'no-unused-vars': 0,
     'import/prefer-default-export': 0,
+    'consistent-return': 0,
   }
 };

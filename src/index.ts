@@ -1,6 +1,5 @@
 import app from '@src/interface/App';
 import config from '@src/config';
-import '@src/infrastructure/logger/logger';
 import logger from '@src/infrastructure/logger/logger';
 
 const port = config.expressPort;
