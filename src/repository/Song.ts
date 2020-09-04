@@ -12,13 +12,18 @@ export const AddSongs = async (songs: Song[]) => {
 
   const queryString = `
   INSERT INTO song (\`episode_episode\`, \`episode_index\`, \`title\`, \`uploader\`, \`votable\`, \`isrookie\`) VALUES
-  ${songs.map(({ episode, title, uploader, votable, isRookie }) => `(${episode.episode}, ${episode.index}, "${title}", "${uploader}", ${votable}, ${isRookie})`)}
+  ${songs
+    .map(({ episode, title, uploader, votable, isRookie }) => (
+      `(${episode.episode}, ${episode.index}, "${title.replace(/"/g, '\\"')}", "${uploader.replace(/"/g, '\\"')}", ${votable}, ${isRookie})`
+    ))
+    .join(', ')}
   `;
 
   await connection.beginTransaction();
 
   try {
     await connection.query<ResultSetHeader>(queryString);
+    await connection.commit();
 
     connection.release();
   } catch (err) {
