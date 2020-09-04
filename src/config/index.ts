@@ -13,4 +13,6 @@ export default {
   mysqlDatabase: process.env.MYSQL_DATABASE,
   // Google SpreadSheets
   seasonSheetId: process.env.SEASON_SHEET_ID,
+  // Logs
+  logDirectory: process.env.LOG_DIRECTORY,
 };
