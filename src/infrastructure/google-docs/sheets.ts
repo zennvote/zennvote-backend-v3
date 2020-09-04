@@ -37,7 +37,7 @@ const formatEpisodeData = (cell: CellData, episode: number, index: number): Song
   const votable = (color?.red ?? 0) < 0.9 || color?.red === 1;
   const isOpening = index === 26;
 
-  const values = rawValue.slice((!isOpening && index > 9) ? 4 : 3).split(' : ');
+  const values = rawValue.slice((!isOpening && index > 9) ? 4 : 3).split(':').map((value) => value.trim());
 
   const isRookie = values[0].startsWith('[데뷔] ');
   if (isRookie) {
@@ -72,5 +72,5 @@ export const getSeasonData = async (season: number) => {
       },
     }));
 
-  return season === 10 ? songList : songList.map((song) => ({ ...song, votable: false }));
+  return season === 11 ? songList : songList.map((song) => ({ ...song, votable: false }));
 };
