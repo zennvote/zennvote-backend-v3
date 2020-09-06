@@ -1,9 +1,12 @@
 import * as SongRepository from '@src/repository/Song';
+import * as ProducerRepsository from '@src/repository/Producer';
 
 import * as sheets from './sheets';
 
 export const migrateProducer = async () => {
-  throw new Error('Not Implemented');
+  const producers = await sheets.getProducerData();
+
+  await ProducerRepsository.AddProducers(producers);
 };
 
 export const migrateSong = async (season: number) => {

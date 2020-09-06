@@ -2,6 +2,7 @@ import { google, sheets_v4 as sheetsV4 } from 'googleapis';
 
 import Song from '@src/domain/Song';
 import config from '@src/config';
+import Producer from '@src/domain/Producer';
 import { getAuthorizedClient } from './auth';
 
 type GetSheetBody = sheetsV4.Params$Resource$Spreadsheets$Get;
@@ -73,4 +74,34 @@ export const getSeasonData = async (season: number) => {
     }));
 
   return season === 11 ? songList : songList.map((song) => ({ ...song, votable: false }));
+};
+
+const formatProducerData = (values: CellData[] | undefined): Producer | undefined => {
+  if (values === undefined || !values?.[0]?.formattedValue) {
+    return undefined;
+  }
+
+  return {
+    name: values[0].formattedValue,
+    songs: values.slice(1)
+      .map((value) => value.formattedValue)
+      .filter<string>((value): value is string => value !== null && value !== undefined)
+      .map((value) => {
+        const [episode, index] = value.split(' ')[0].split('-');
+
+        return { episode: parseInt(episode, 10), index: parseInt(index, 10) };
+      }),
+  };
+};
+
+export const getProducerData = async () => {
+  const sheetId = config.producerSheetId as string;
+  const range = '1.노래자랑P DB!B3:AK';
+  const sheet = await getSheet(sheetId, range);
+
+  const rows = getRows(sheet);
+
+  return rows
+    .map(({ values }) => formatProducerData(values))
+    .filter((value) => value !== undefined) as Producer[];
 };
