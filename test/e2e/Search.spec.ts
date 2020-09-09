@@ -17,7 +17,7 @@ describe('Search Test', () => {
     sinon.restore();
   });
 
-  describe('GET /search/song', () => {
+  describe('GET /search/song/episode', () => {
     it('should return song with given episode', async () => {
       // Arrange
       const getSongMock = sinon.stub(SongRepository, 'GetSong');
@@ -26,7 +26,7 @@ describe('Search Test', () => {
 
       // Act
       const { episode } = sample;
-      const response = await request.get('/search/song').query(episode);
+      const response = await request.get('/search/song/episode').query(episode);
 
       // Assert
       response.status.should.equal(200);
@@ -42,7 +42,7 @@ describe('Search Test', () => {
 
       // Act
       const episode: Episode = { episode: 0, index: 0 };
-      const response = await request.get('/search/song').query(episode);
+      const response = await request.get('/search/song/episode').query(episode);
 
       // Assert
       response.status.should.equal(404);
