@@ -30,7 +30,7 @@ describe('Search Test', () => {
 
       // Assert
       response.status.should.equal(200);
-      response.body.should.deep.equal(sample);
+      response.body.result.should.deep.equal(sample);
       getSongMock.called.should.be.true;
       getSongMock.firstCall.args.should.deep.equal([episode]);
     });
