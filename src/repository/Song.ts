@@ -1,7 +1,8 @@
-import { ResultSetHeader } from 'mysql2/promise';
+import { ResultSetHeader, RowDataPacket } from 'mysql2/promise';
 import { getConnection } from '@src/infrastructure/db/connection';
 
 import Song from '@src/domain/Song';
+import Episode from '@src/domain/value-object/Episode';
 
 export const AddSongs = async (songs: Song[]) => {
   const connection = await getConnection();
@@ -33,4 +34,19 @@ export const AddSongs = async (songs: Song[]) => {
 
     throw err;
   }
+};
+
+export const GetSong = async ({ episode, index }: Episode): Promise<Song | null> => {
+  const connection = await getConnection();
+
+  const queryString = `SELECT * FROM song WHERE \`episode_episode\`=${episode} and \`episode_index\`=${index}`;
+
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+  if (queryResult.length === 0) {
+    return null;
+  }
+  const { title, uploader, votable, isrookie: isRookie } = queryResult[0];
+  return {
+    episode: { episode, index }, title, uploader, votable, isRookie,
+  };
 };
