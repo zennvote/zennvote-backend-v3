@@ -8,6 +8,7 @@ import logger from '@src/infrastructure/logger/logger';
 import ChoiceRouter from './routes/Choice';
 import VoteRouter from './routes/Vote';
 import QuizRouter from './routes/Quiz';
+import SearchRouter from './routes/Search';
 
 const PrettyError = new PE();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => res.json('Hello World'));
 app.use('/choice', ChoiceRouter);
 app.use('/vote', VoteRouter);
 app.use('/quiz', QuizRouter);
+app.use('/search', SearchRouter);
 
 app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   const prettyError = PrettyError.render(error);
