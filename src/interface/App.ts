@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as PE from 'pretty-error';
+import * as cors from 'cors';
 
 import logger from '@src/infrastructure/logger/logger';
 
@@ -13,6 +14,7 @@ const PrettyError = new PE();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(morgan('combined', {
   stream: { write: (message) => logger.http(message) },
 }));
