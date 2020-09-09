@@ -35,7 +35,20 @@ describe('Search Test', () => {
       getSongMock.firstCall.args.should.deep.equal([episode]);
     });
 
-    it("should response 404 whene there 's no song", async () => {
+    it("should response 400 when there's no episode info", async () => {
+      // Arrange
+      const getSongMock = sinon.stub(SongRepository, 'GetSong');
+      getSongMock.resolves(null);
+
+      // Act
+      const response = await request.get('/search/song/episode');
+
+      // Assert
+      response.status.should.equal(400);
+      getSongMock.called.should.be.false;
+    });
+
+    it("should response 404 when there's no song", async () => {
       // Arrange
       const getSongMock = sinon.stub(SongRepository, 'GetSong');
       getSongMock.resolves(null);
