@@ -14,7 +14,7 @@ export const SearchSongByIndexHandler = async (req: Request, res: Response, next
   const episode: Episode = {
     episode: parseInt(req.query.episode as string, 10),
     index: parseInt(req.query.index as string, 10),
-  }
+  };
   try {
     const result = await SearchApp.searchSongByEpisode(episode);
 
@@ -28,4 +28,4 @@ export const SearchSongByIndexHandler = async (req: Request, res: Response, next
       next(error);
     }
   }
-}
+};
