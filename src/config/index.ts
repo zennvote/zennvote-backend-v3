@@ -11,6 +11,8 @@ export default {
   mysqlUser: process.env.MYSQL_USER,
   mysqlPassword: process.env.MYSQL_PASSWORD,
   mysqlDatabase: process.env.MYSQL_DATABASE,
+  mysqlMaxConnection: parseInt(process.env.MYSQL_MAX_CONN ?? '10', 10),
+  mysqlMaxQueue: parseInt(process.env.MYSQL_MAX_QUEUE ?? '10', 10),
   // Google SpreadSheets
   seasonSheetId: process.env.SEASON_SHEET_ID,
   producerSheetId: process.env.PRODUCER_SHEET_ID,

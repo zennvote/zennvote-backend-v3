@@ -11,7 +11,8 @@ export const getConnection = async () => {
       user: configs.mysqlUser,
       password: configs.mysqlPassword,
       database: configs.mysqlDatabase,
-      connectionLimit: 4,
+      connectionLimit: configs.mysqlMaxConnection,
+      queueLimit: configs.mysqlMaxQueue,
     });
   }
 
