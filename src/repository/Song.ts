@@ -42,12 +42,12 @@ export const GetSong = async ({ episode, index }: Episode): Promise<Song | null>
   const queryString = `SELECT * FROM song WHERE \`episode_episode\`=${episode} and \`episode_index\`=${index}`;
 
   const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+  connection.release();
+
   if (queryResult.length === 0) {
     return null;
   }
   const { title, uploader, votable, isrookie: isRookie } = queryResult[0];
-
-  connection.release();
 
   return {
     episode: { episode, index }, title, uploader, votable, isRookie,
