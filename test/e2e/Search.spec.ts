@@ -5,8 +5,9 @@ import { should } from 'chai';
 import app from '@src/interface/App';
 
 import * as SongRepository from '@src/repository/Song';
-import * as util from './Search.util';
 import Episode from '@src/domain/value-object/Episode';
+
+import * as util from './Search.util';
 
 should();
 

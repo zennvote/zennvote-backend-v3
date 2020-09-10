@@ -12,4 +12,4 @@ export const searchSongByEpisode = async (episode: Episode) => {
   }
 
   return song;
-}
+};

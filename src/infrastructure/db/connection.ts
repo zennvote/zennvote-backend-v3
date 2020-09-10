@@ -1,5 +1,6 @@
 import * as mysql from 'mysql2/promise';
 import configs from '@src/config';
+import logger from '@src/infrastructure/logger/logger';
 
 let connectionPool: mysql.Pool | undefined;
 
@@ -12,11 +13,19 @@ export const getConnection = async () => {
       password: configs.mysqlPassword,
       database: configs.mysqlDatabase,
       connectionLimit: configs.mysqlMaxConnection,
-      queueLimit: configs.mysqlMaxQueue,
+      waitForConnections: false,
     });
   }
 
-  const connection = await connectionPool.getConnection();
+  try {
+    const connection = await connectionPool.getConnection();
 
-  return connection;
+    logger.info('DB Connection Created. ');
+
+    return connection;
+  } catch (err) {
+    logger.error('DB Connection Creation Failed. See error log.');
+
+    throw err;
+  }
 };
