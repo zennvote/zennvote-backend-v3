@@ -46,6 +46,9 @@ export const GetSong = async ({ episode, index }: Episode): Promise<Song | null>
     return null;
   }
   const { title, uploader, votable, isrookie: isRookie } = queryResult[0];
+
+  connection.release();
+
   return {
     episode: { episode, index }, title, uploader, votable, isRookie,
   };
