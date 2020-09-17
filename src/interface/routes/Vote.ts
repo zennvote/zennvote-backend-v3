@@ -5,5 +5,6 @@ import PostVoteValidator from '@src/handler/Vote/PostVoteValidator';
 const router = express.Router();
 
 router.post('/', PostVoteValidator, VoteHanlder.PostVoteHandler);
+router.get('/statistics', VoteHanlder.GetVoteStatisticsHandler);
 
 export default router;
