@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { validationResult } from 'express-validator';
+
 import * as VoteApp from '@src/application/Vote';
 import * as VoteError from '@src/application/Vote/errors';
-import { validationResult } from 'express-validator';
+import * as StatisticsApp from '@src/application/Statistics';
 
 export const PostVoteHandler = async (req: Request, res: Response, next: NextFunction) => {
   const vote = req.body;
@@ -22,5 +24,15 @@ export const PostVoteHandler = async (req: Request, res: Response, next: NextFun
     } else {
       next(error);
     }
+  }
+};
+
+export const GetVoteStatisticsHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await StatisticsApp.getStatistics();
+
+    res.json({ success: true, result });
+  } catch (error) {
+    next(error);
   }
 };
