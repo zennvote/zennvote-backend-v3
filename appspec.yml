@@ -2,17 +2,4 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/zennvote/backend-v3/deploy/server/zennvote-backend-v3/
-permissions:
-  - object: /home/ubuntu/zennvote/backend-v3/deploy/server/zennvote-backend-v3
-    pattern: "*.sh"
-    mode: 777
-    type:
-      - file
-hooks:
-  BeforeInstall:
-    - location: clear.sh
-      timeout: 180
-  AfterInstall:
-    - location: execute-deploy.sh
-      timeout: 180
+    destination: /apps/zennvote-backend-v3
