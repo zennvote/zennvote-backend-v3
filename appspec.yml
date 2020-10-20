@@ -3,3 +3,10 @@ os: linux
 files:
   - source: /
     destination: /apps/zennvote-backend-v3
+permissions:
+  - object: /apps/zennvote-backend-v3
+    pattern: "**"
+    owner: "ubuntu"
+    mode: 500
+    type:
+      - file
