@@ -1,0 +1,30 @@
+name: Codedeploy Test
+
+on:
+  push:
+    branches:
+      - feature/codedeploy
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependancies
+      run: npm install
+
+    - name: Test project
+      run: npm test
+
+    - name: Deploy project
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws deploy create-deployment \
+          --region ap-northeast-2 \
+          --application-name zennvote-deploy-app \
+          --deployment-group-name zennvote-deploy-group \
+          --github-location repository="zennvote/zennvote-backend-v3",commitId="${{ github.sha }}"
