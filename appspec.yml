@@ -7,6 +7,6 @@ permissions:
   - object: /apps/zennvote-backend-v3
     pattern: "**"
     owner: "ubuntu"
-    mode: 500
+    mode: 644
     type:
       - file
