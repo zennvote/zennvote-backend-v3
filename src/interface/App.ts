@@ -15,7 +15,9 @@ const PrettyError = new PE();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://vote020.dev-shift.me',
+}));
 app.use(morgan('combined', {
   stream: { write: (message) => logger.http(message) },
 }));
