@@ -4,6 +4,7 @@ import Vote from '@src/domain/Vote';
 import Episode from '@src/domain/value-object/Episode';
 
 import { getConnection } from '@src/infrastructure/db/connection';
+import { EpisodeVoteField, StaticVoteField } from '@src/domain/value-object/VoteField';
 
 export const isEmailDuplicated = async (email: string): Promise<boolean> => {
   const connection = await getConnection();
@@ -130,4 +131,48 @@ export const saveVote = async (vote: Vote): Promise<Vote> => {
   connection.release();
 
   return vote;
+};
+
+export const getEpisodeVoteStatistics = async (field: EpisodeVoteField) => {
+  const connection = await getConnection();
+
+  const queryString = `
+  SELECT uploader, COUNT(*) as count FROM vote_${field} as vote
+  LEFT OUTER JOIN song ON (
+    song.episode_episode = vote.episode_episode AND
+      song.episode_index = vote.episode_index
+  )
+  GROUP BY uploader
+  ORDER BY COUNT(*) DESC;
+  `;
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+
+  connection.release();
+
+  const result = queryResult.map(({ uploader, count }) => ({
+    producer: uploader as string,
+    count: count as number,
+  }));
+
+  return result;
+};
+
+export const getStaticVoteStatistics = async (field: StaticVoteField) => {
+  const connection = await getConnection();
+
+  const queryString = `
+  SELECT value, COUNT(*) as count FROM vote_${field}
+  GROUP BY value
+  ORDER BY COUNT(*) DESC;
+  `;
+  const [queryResult] = await connection.query<RowDataPacket[]>(queryString);
+
+  connection.release();
+
+  const result = queryResult.map(({ value, count }) => ({
+    producer: value as string,
+    count: count as number,
+  }));
+
+  return result;
 };
